@@ -1,0 +1,56 @@
+
+# kafka
+step0: create new directories in your kafka directory
+zookeeper
+kafka-logs
+
+
+#step1: 
+# open two files below e:\Apps\Kafka\kafka-2.3.0-src\config\
+#1. zookeeper.properties
+dataDir=e:\Apps\Kafka\kafka_2.11-2.2.0\zookeeper
+
+#2.server.properties
+# Phongdn add more params 2019 
+	offsets.topic.num.partitions=1
+	offsets.topic.replication.factor=1
+	transaction.state.log.replication.factor=1
+	transaction.state.log.min.isr=1
+	min.insync.replicas=1
+	default.replication.factor=1
+# Phongdn add more params 2019 
+
+step2: 
+# Start zookeeper server 
+zookeeper-server-start.bat	e:\Apps\Kafka\kafka_2.11-2.2.0\config\zookeeper.properties
+
+# Start kafka server 
+kafka-server-start.bat	e:\Apps\Kafka\kafka_2.11-2.2.0\config\server.properties
+
+# Initiate a node (for e.g localhost:2181) to create and handle brokers/ids 
+zookeeper-shell.bat localhost:2181 ls /brokers/ids
+
+#Tao topics locate tren partion 1 
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic phongtest
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic phongdotestkafka03082019
+
+#tao kenh phat di 
+kafka-console-producer.bat	--broker-list localhost:9092 --topic phongdotestkafka03082019
+>hi Phong boss
+>I'm your Kafka
+>you created me by today at 6:59PM 03-AUG-2019
+>I'm getting ready to assist you do something
+>give me your command
+>Thx you
+>Ctrl+C # in case you end 
+
+
+## tao kenh nhan thong tin tu topics1
+kafka-console-consumer.bat	--bootstrap-server localhost:9092 --topic phongdotestkafka03082019 --from-beginning
+
+
+
+ 
+
+
+
